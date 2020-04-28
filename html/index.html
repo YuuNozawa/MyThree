@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MUMIN</title>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script> -->
+        <script type="text/javascript" src="../libs/three.js"></script>
+        <script type="text/javascript" src="../libs/loaders/OBJLoader.js"></script>
+        <style>
+            body{
+                /*ページ全体を使用するためにmarginを0に設定してoverFlowをhiddenに設定する*/
+                margin: 0;
+                overFlow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <!--出力を保持するdiv-->
+        <div id="WebGL-output">
+        </div>
+    
+        <!--サンプルを実行するJavaScriptコード-->
+        <script type="text/javascript">
+
+            function init(){
+                //scene:表示したい全ての物体と利用したい全ての光源を保持して変更を監視するコンテナオブジェクト
+                var scene = new THREE.Scene();
+                //camera:シーンを描画するときに何が見えるのか決定
+                var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+                //renderer:cameraオブジェクトの角度に基づいてブラウザ内でsceneオブジェクトがどのように見えるのか計算する
+                var renderer = new THREE.WebGLRenderer();
+                renderer.setClearColor( new THREE.Color(0xEEEEEE) );
+                renderer.setSize( window.innerWidth / window.innerHeight );
+
+
+                var mesh;
+                var loader = new THREE.OBJLoader();
+                loader.load('../assets/models/mumin.obj', function (loadedMesh) {
+                    var material = new THREE.MeshLambertMaterial({color: 0x5C3A21});
+
+                    // loadedMesh is a group of meshes. For
+                    // each mesh set the material, and compute the information
+                    // three.js needs for rendering.
+                    loadedMesh.children.forEach(function (child) {
+                        child.material = material;
+                        child.geometry.computeFaceNormals();
+                        child.geometry.computeVertexNormals();
+                    });
+
+                    mesh = loadedMesh;
+                    loadedMesh.scale.set(100,100,100);
+                    scene.add(loadedMesh);
+                    console.log("処理確認");
+                });
+
+                camera.position.x = -30;
+                camera.position.y = 40;
+                camera.position.z = 30;
+                camera.lookAt(scene.position);
+
+                document.getElementById("WebGL-output").appendChild(renderer.domElement);
+
+                renderer.render(scene,camera);
+
+            }
+            window.onload = init;
+    
+        </script>
+    </body>
+</html>

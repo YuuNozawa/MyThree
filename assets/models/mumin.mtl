@@ -1,0 +1,33 @@
+
+newmtl StandardFFFFFF
+Kd  01 01 01
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl CartoonFFFFFF
+Kd  01 01 01
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
+
+newmtl Cartoon6C6C6C
+Kd  0.4235294 0.4235294 0.4235294
+Ks  00 00 00
+Ka  00 00 00
+d  01
+Ns  00
+illum 2
+
+
+
